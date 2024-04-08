@@ -176,6 +176,19 @@ void print_pyramid(int* arr, int size) {
     }
 }
 
+// Функция для вывода информации о потомке и его родителе
+void print_index(int* arr, int arr_size, int index) {
+    if (index == 0) {
+        std::cout << 0 << " root " << arr[0] << std::endl;
+        return;
+    }
+    int parent_index = pyramid_parent_index(index);
+    std::cout << pyramid_level(index)
+        << (pyramid_is_left(index) ? " left" : " right")
+        << "(" << arr[parent_index] << ") "
+        << arr[index] << std::endl;
+}
+
 // Функция для перемещения пользователя по пирамиде
 void travel_pyramid(int* arr, int size) {
     int current_index = 0; // Индекс текущего элемента (корень пирамиды)
@@ -199,7 +212,7 @@ void travel_pyramid(int* arr, int size) {
             else {
                 current_index = pyramid_parent_index(current_index);
                 std::cout << "Ок" << std::endl;
-                std::cout << "Вы находитесь здесь: " << pyramid_level(current_index) << " root " << arr[current_index] << std::endl;
+                print_index(arr, size, current_index);
             }
         }
         else if (command == "left") {
@@ -210,7 +223,7 @@ void travel_pyramid(int* arr, int size) {
             else {
                 current_index = left_child_index;
                 std::cout << "Ок" << std::endl;
-                std::cout << "Вы находитесь здесь: " << pyramid_level(current_index) << " left(" << arr[current_index] << ") " << arr[current_index] << std::endl;
+                print_index(arr, size, current_index);
             }
         }
         else if (command == "right") {
@@ -221,7 +234,7 @@ void travel_pyramid(int* arr, int size) {
             else {
                 current_index = right_child_index;
                 std::cout << "Ок" << std::endl;
-                std::cout << "Вы находитесь здесь: " << pyramid_level(current_index) << " right(" << arr[current_index] << ") " << arr[current_index] << std::endl;
+                print_index(arr, size, current_index);
             }
         }
         else {
@@ -231,7 +244,6 @@ void travel_pyramid(int* arr, int size) {
 }
 
 int main() {
-
     setlocale(LC_ALL, "ru");
 
     int* arr = new int[6] {1, 3, 6, 5, 9, 8};
@@ -251,3 +263,4 @@ int main() {
 
     return 0;
 }
+
